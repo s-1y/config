@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-if ! command -v zsh &> /dev/null; then
+if ! which zsh &> /dev/null; then
   echo "(1) installing zsh..."
   sudo apt update && sudo apt install -y zsh
 else
@@ -36,9 +36,9 @@ else
 fi
 
 echo "(5) yanking files..."
-cp .bashrc ~/.bashrc
-cp -r .pip ~/.pip
-cp .vimrc ~/.vimrc
-cp .gitconfig ~/.gitconfig
-cp .gitcommit_template ~/.gitcommit_template
+ln -s .bashrc ~/.bashrc
+ln -s .pip ~/.pip
+ln -s .vimrc ~/.vimrc
+ln -s .gitconfig ~/.gitconfig
+ln -s .gitcommit_template ~/.gitcommit_template
 echo "all set!"
