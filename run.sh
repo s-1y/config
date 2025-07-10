@@ -75,4 +75,40 @@ else
   bash "$INSTALLER" -b -p "$MINIFORGE_DIR"
   rm "$INSTALLER"
 fi
-echo "(9) All tasks completed! Please restart your terminal to apply changes!"
+
+if ! conda list -n base | grep -q '^mamba\s'; then
+    echo "(9) Installing mamba..."
+    conda install -n base -c conda-forge mamba -y
+else
+    echo "(9) Mamba is already installed"
+fi
+
+KEY="alias c='conda'"
+ALIASES=(
+    "alias c='conda'"
+    "alias ca='conda activate'"
+    "alias cd='conda deactivate'"
+    "alias cl='conda list'"
+    "alias cc='conda create -n'"
+    "alias ci='conda install'"
+    "alias cer='conda env remove -n'"
+    "alias m='mamba'"
+    "alias ma='mamba activate'"
+    "alias md='mamba deactivate'"
+    "alias ml='mamba list'"
+    "alias mi='mamba install'"
+    "alias mc='mamba create -n'"
+    "alias mer='mamba env remove -n'"
+)
+if ! grep -qF "$KEY" ~/.zshrc; then
+  echo "(10) Adding conda/mamba liases to ~/.zshrc..."
+  echo "" >> ~/.zshrc
+  echo "# Conda shortcuts [auto-added]" >> ~/.zshrc
+  for alias_line in "${ALIASES[@]}"; do
+    echo "$alias_line" >> ~/.zshrc
+  done
+else
+  echo "(10) Conda aliases already exists!"
+fi
+source ~/.zshrc
+echo "(√) All tasks completed! Please restart your terminal to apply changes!"
