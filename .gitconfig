@@ -3,3 +3,25 @@
 [user]
 	email = 2300017408@stu.pku.edu.cn
 	name = s-1y
+[http]
+	proxy = http://127.0.0.1:7890
+[core]
+	editor = vim
+	excludesfile = ~/.gitignore_global
+[color]
+	ui = auto
+[alias]
+	ci = commit
+	co = checkout
+	st = status
+	br = branch 
+	a = add
+	pom = push origin main
+	ps = push
+	pu = pull
+	l = log --oneline --decoratd
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[color "branch"]
+    upstream = cyan
+[commit]
+    template = ~/.gitcommit_template

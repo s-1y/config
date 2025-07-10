@@ -1,0 +1,84 @@
+# Header:
+type(scope): subject
+#
+# Body:
+# - 
+#
+# Footer:
+# BREAKING CHANGE: 
+# Reviewed-by: s-1y syy@stu.pku.edu.cn
+# Refs #123
+# Closes #123
+#
+# -----------------------------------------------------------------------------
+# Header: <type>(<scope>): <subject>
+# - type: feat, fix, docs, style, refactor, perf, test, build, ci, chore
+# - scope: can be empty (eg. if the change is a global or difficult to assign to a single component)
+# - subject: start with verb (such as 'change'), 72-character line
+#
+# Body: 72-character line. This should answer:
+# - Why was this change necessary?
+# - How does it address the problem?
+# - Are there any side effects?
+#
+# Footer: 
+# - Include a reference to the issue, if any.
+# - BREAKING CHANGE
+# - Closes #issue number
+#
+# -----------------------------------------------------------------------------
+# Type:
+# - feat: A new feature
+# - fix: A bug fix
+# - docs: Documentation only changes
+# - style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+# - refactor: A code change that neither fixes a bug nor adds a feature
+# - perf: A code change that improves performance
+# - test: Adding missing tests or correcting existing tests
+# - build: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
+# - ci: Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)
+# - chore: Changes to the build process or auxiliary tools and libraries such as documentation generation
+#
+# -----------------------------------------------------------------------------
+# Header:
+# - The header is mandatory and the scope of the header is optional.
+# - Any line of the commit message cannot be longer 72 characters! This allows the message to be easier to read on GitHub as well as in various git tools.
+#
+# Subject:
+# - The subject contains a succinct description of the change:
+# - use the imperative, present tense: "change" not "changed" nor "changes"
+# - don't capitalize the first letter
+# - no dot (.) at the end
+#
+# Body:
+# - Just as in the subject, use the imperative, present tense: "change" not "changed" nor "changes". The # body should include the motivation for the change and contrast this with previous behavior.
+#
+# Footer:
+# - The footer should contain any information about Breaking Changes and is also the place to reference GitHub issues that this commit Closes.
+#
+# Breaking Changes:
+# - Commit message with ! to draw attention to breaking change
+# - Breaking Changes should start with the word BREAKING CHANGE: with a space or two newlines. The rest of the commit message is then used for this.
+# - Breaking changes must be mentioned in footer with the description of the change, justification and migration notes.
+# Example:
+#
+# refactor!: drop support for Node 6
+#
+# BREAKING CHANGE: refactor to use JavaScript features not available in Node 6.
+#
+# Issue References:
+# - The footer should contain a closing reference to an issue if any.
+# - If you want to reference an issue, but not close it, use GitHub's special keyword syntaxes, such as References #123, which references issue #123, but doesn't close it.
+#
+# -----------------------------------------------------------------------------
+# Revert:
+# - If the commit reverts a previous commit, it should begin with revert: , followed by the header of the reverted commit. In the body it should say: This reverts commit <hash>., where the hash is the SHA of the commit being reverted.
+# Example:
+#
+# revert: feat(pencil): add 'graphiteWidth' option
+#
+# This reverts commit 667ecc1654a317a13331b17617d973392f415f02.
+#
+# -----------------------------------------------------------------------------
+# copy from https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#-commit-message-guidelines
+
