@@ -35,3 +35,10 @@ else
   echo "(4) zsh is already the default shell"
 fi
 
+echo "(5) yanking files..."
+cp .bashrc ~/.bashrc
+cp -r .pip ~/.pip
+cp .vimrc ~/.vimrc
+cp .gitconfig ~/.gitconfig
+cp .gitcommit_template ~/.gitcommit_template
+echo "all set!"
