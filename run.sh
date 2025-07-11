@@ -49,7 +49,7 @@ else echo "(5) Zsh-autosuggestions already installed!"
 fi
 
 
-if [ "$SHELL" != "$(which zsh)" ]; then
+if [ "$(getent passwd "$USER" | cut -d: -f7)" != "$(which zsh)" ]; then
   echo "(6) Setting default shell..."
   chsh -s "$(which zsh)" "$(whoami)"
 else
@@ -57,7 +57,7 @@ else
 fi
 
 ln -sf "$PWD/.bashrc" ~/.bashrc
-rm -r ~/.pip
+rm -rf ~/.pip
 ln -sf "$PWD/.pip" ~/.pip
 ln -sf "$PWD/.vimrc" ~/.vimrc
 ln -sf "$PWD/.gitconfig" ~/.gitconfig
@@ -72,9 +72,11 @@ else
   INSTALLER="Miniforge3-Linux-x86_64.sh"
   URL="https://github.com/conda-forge/miniforge/releases/latest/download/$INSTALLER"
   curl -L -o "$INSTALLER" "$URL"
-  bash "$INSTALLER" -b -p "$MINIFORGE_DIR"
+  bash "$INSTALLER" -p "$MINIFORGE_DIR"
   rm "$INSTALLER"
 fi
+
+source "$MINIFORGE_DIR/etc/profile.d/conda.sh"
 
 if ! conda list -n base | grep -q '^mamba\s'; then
     echo "(9) Installing mamba..."
@@ -110,5 +112,4 @@ if ! grep -qF "$KEY" ~/.zshrc; then
 else
   echo "(10) Conda aliases already exists!"
 fi
-source ~/.zshrc
 echo "(√) All tasks completed! Please restart your terminal to apply changes!"
