@@ -56,7 +56,6 @@ else
   echo "(6) Zsh is already the default shell!"
 fi
 
-ln -sf "$PWD/.bashrc" ~/.bashrc
 rm -rf ~/.pip
 ln -sf "$PWD/.pip" ~/.pip
 ln -sf "$PWD/.vimrc" ~/.vimrc
