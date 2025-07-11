@@ -111,4 +111,28 @@ if ! grep -qF "$KEY" ~/.zshrc; then
 else
   echo "(10) Conda aliases already exists!"
 fi
+
+FONT_NAME="MesloLGL"
+FONT_DIR="$HOME/.local/share/fonts"
+MESLO_URL_BASE="https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Meslo/L/Regular/"
+FONTS=(
+  "MesloLGLNerdFont-Regular.ttf"
+  "MesloLGLNerdFontMono-Regular.ttf"
+  "MesloLGLNerdFontPropo-Regular.ttf"
+
+)
+if fc-list | grep -qi "$FONT_NAME"; then
+  echo "(11) Font '$FONT_NAME' already installed!"
+else
+  echo "(11) Installing font '$FONT_NAME'..."
+
+  mkdir -p "$FONT_DIR"
+
+  for font in "${FONTS[@]}"; do
+    wget --show-progress "${MESLO_URL_BASE}${font}" -O "$FONT_DIR/$(echo "$font" | sed 's/%20/ /g')"
+  done
+  fc-cache -fv > /dev/null
+  echo "Fonts installed successfully!"
+fi
+
 echo "(√) All tasks completed! Please restart your terminal to apply changes!"
