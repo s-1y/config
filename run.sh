@@ -112,13 +112,14 @@ else
   echo "(10) Conda aliases already exists!"
 fi
 
-FONT_NAME="MesloLGL"
+FONT_NAME="MesloLGS"
 FONT_DIR="$HOME/.local/share/fonts"
-MESLO_URL_BASE="https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Meslo/L/Regular/"
+MESLO_URL_BASE="https://github.com/romkatv/powerlevel10k-media/raw/master/"
 FONTS=(
-  "MesloLGLNerdFont-Regular.ttf"
-  "MesloLGLNerdFontMono-Regular.ttf"
-  "MesloLGLNerdFontPropo-Regular.ttf"
+  "MesloLGS%20NF%20Regular.ttf"
+  "MesloLGS%20NF%20Bold.ttf"
+  "MesloLGS%20NF%20Italic.ttf"
+  "MesloLGS%20NF%20Bold%20Italic.ttf"
 
 )
 if fc-list | grep -qi "$FONT_NAME"; then
