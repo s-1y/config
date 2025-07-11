@@ -64,7 +64,10 @@ ln -sf "$PWD/.gitcommit_template" ~/.gitcommit_template
 echo "(7) Symbolic links created successfully!"
 
 MINIFORGE_DIR="$HOME/miniforge3"
-if [ -d "$MINIFORGE_DIR" ]; then
+if [ -d "$MINIFORGE_DIR" ] ||
+   [ -d "$HOME/anaconda3" ] ||
+   [ -d "HOME/miniconda3"] ||
+   command -v conda &>/dev/null; then
   echo "(8) Miniforge already installed!"
 else
   echo "(8) Installing Miniforge..."
