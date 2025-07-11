@@ -68,7 +68,7 @@ if [ -d "$MINIFORGE_DIR" ] ||
    [ -d "$HOME/anaconda3" ] ||
    [ -d "HOME/miniconda3"] ||
    command -v conda &>/dev/null; then
-  echo "(8) Miniforge already installed!"
+  echo "(8) Conda already installed!"
 else
   echo "(8) Installing Miniforge..."
   INSTALLER="Miniforge3-Linux-x86_64.sh"
