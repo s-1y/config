@@ -203,20 +203,5 @@ else
   echo "(14) Adding tmux alises..."
   echo "$CONFIG_CONTENT" >> "$TMUX_CONF_LOCAL"
 fi
-TPM_DIR="$HOME/.tmux/plugins/tpm"
-if [ ! -d "$TPM_DIR" ]; then
-  echo "(15) Installing TPM plugin manager..."
-  git clone git@github.com:s-1y/tpm-tmux-plug-in-.git "$TPM_DIR"
-  tmux start-server
-  export PATH=$PATH:/usr/bin:/bin
-  export SHELL=/bin/bash
-  tmux new-session -d -s __install
-  tmux source-file ~/.tmux.conf
-  "$TPM_DIR/bin/install_plugins"
-  tmux kill-session -t __install
-else
-  echo "(15) TPM plugin manager already installed!"
-fi
-
 
 echo "(√) All tasks completed! Please restart your terminal to apply changes!"
