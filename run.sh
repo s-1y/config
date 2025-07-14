@@ -105,7 +105,7 @@ ALIASES=(
     "alias mer='mamba env remove -n'"
 )
 if ! grep -qF "$KEY" ~/.zshrc; then
-  echo "(10) Adding conda/mamba liases to ~/.zshrc..."
+  echo "(10) Adding conda/mamba aliases to ~/.zshrc..."
   echo "" >> ~/.zshrc
   echo "# Conda shortcuts [auto-added]" >> ~/.zshrc
   for alias_line in "${ALIASES[@]}"; do
@@ -138,5 +138,85 @@ else
   fc-cache -fv > /dev/null
   echo "Fonts installed successfully!"
 fi
+
+if ! command -v tmux &> /dev/null; then
+  echo "(12) Installing tmux"
+  sudo apt-get install -y tmux
+else
+  echo "(12) Tmux already installed!"
+fi
+
+
+OH_MY_TMUX_DIR="$HOME/.oh-my-tmux"
+OH_MY_TMUX_REPO="git@github.com:s-1y/.tmux.git"
+
+if [ ! -d "$OH_MY_TMUX_DIR" ]; then
+    echo "(13) Installing oh-my-tmux..."
+    git clone --depth=1 "$OH_MY_TMUX_REPO" "$OH_MY_TMUX_DIR"
+    if [ -f "$HOME/.tmux.conf" ]; then
+        mv "$HOME/.tmux.conf" "$HOME/.tmux.conf.bak"
+    fi
+    ln -s -f "$OH_MY_TMUX_DIR/.tmux.conf" "$HOME/.tmux.conf"
+    cp "$OH_MY_TMUX_DIR/.tmux.conf.local" "$HOME/"
+else
+    echo "(13) Oh-my-tmux already installed!"
+fi
+
+TMUX_CONF_LOCAL="$HOME/.tmux.conf.local"
+KEY_LINES=(
+  "bind | split-window -h"
+  "bind - split-window -v"
+  "set -g @tmux-plugin-istat enable"
+)
+CONFIG_CONTENT='
+# ====== 自定义快捷键 ======
+# 前缀键设为 Ctrl + a
+set -g prefix C-a
+bind C-a send-prefix
+
+# 窗格操作
+bind | split-window -h -c "#{pane_current_path}"  # 垂直分割
+bind - split-window -v -c "#{pane_current_path}"  # 水平分割
+
+# 窗口操作
+# ===== 自定义插件 =====
+bind n next-window
+bind p previous-window
+set -g @plugin "tmux-plugins/tpm"
+set -g @plugin "tmux-plugins/tmux-net-speed"
+set -g @plugin "tmux-plugins/tmux-cpu"
+set -g @plugin "user/tmux-plugin-istat"  
+set -g @tmux-plugin-istat enable
+set -g @plugin-network-format "▲ %s ▼ %s"
+run "~/.tmux/plugins/tpm/tpm"
+'
+config_exists=true
+for line in "${KEY_LINES[@]}"; do
+  if ! grep -qF "$line" "$TMUX_CONF_LOCAL"; then
+    config_exists=false
+	break
+  fi
+done
+if $config_exists; then
+  echo "(14) Tmux alias already exists!"
+else
+  echo "(14) Adding tmux alises..."
+  echo "$CONFIG_CONTENT" >> "$TMUX_CONF_LOCAL"
+fi
+TPM_DIR="$HOME/.tmux/plugins/tpm"
+if [ ! -d "$TPM_DIR" ]; then
+  echo "(15) Installing TPM plugin manager..."
+  git clone git@github.com:s-1y/tpm-tmux-plug-in-.git "$TPM_DIR"
+  tmux start-server
+  export PATH=$PATH:/usr/bin:/bin
+  export SHELL=/bin/bash
+  tmux new-session -d -s __install
+  tmux source-file ~/.tmux.conf
+  "$TPM_DIR/bin/install_plugins"
+  tmux kill-session -t __install
+else
+  echo "(15) TPM plugin manager already installed!"
+fi
+
 
 echo "(√) All tasks completed! Please restart your terminal to apply changes!"
