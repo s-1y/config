@@ -91,11 +91,12 @@ KEY="alias c='conda'"
 ALIASES=(
     "alias c='conda'"
     "alias ca='conda activate'"
-    "alias cd='conda deactivate'"
+    "alias cdd='conda deactivate'"
     "alias cl='conda list'"
     "alias cc='conda create -n'"
     "alias ci='conda install'"
     "alias cer='conda env remove -n'"
+    "alias cel='conda env list'"
     "alias m='mamba'"
     "alias ma='mamba activate'"
     "alias md='mamba deactivate'"
@@ -103,6 +104,7 @@ ALIASES=(
     "alias mi='mamba install'"
     "alias mc='mamba create -n'"
     "alias mer='mamba env remove -n'"
+    "alias mel='mamba env list'"
 )
 if ! grep -qF "$KEY" ~/.zshrc; then
   echo "(10) Adding conda/mamba aliases to ~/.zshrc..."
@@ -110,6 +112,7 @@ if ! grep -qF "$KEY" ~/.zshrc; then
   echo "# Conda shortcuts [auto-added]" >> ~/.zshrc
   for alias_line in "${ALIASES[@]}"; do
     echo "$alias_line" >> ~/.zshrc
+    echo "$alias_line"
   done
 else
   echo "(10) Conda aliases already exists!"
@@ -123,7 +126,6 @@ FONTS=(
   "MesloLGS%20NF%20Bold.ttf"
   "MesloLGS%20NF%20Italic.ttf"
   "MesloLGS%20NF%20Bold%20Italic.ttf"
-
 )
 if fc-list | grep -qi "$FONT_NAME"; then
   echo "(11) Font '$FONT_NAME' already installed!"
