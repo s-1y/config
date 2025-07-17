@@ -5,7 +5,9 @@
 
 cd ~
 
-clone本目录
+git clone (this repo)
+
+cd config
 
 bash run.sh
 
