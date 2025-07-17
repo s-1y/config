@@ -66,7 +66,7 @@ echo "(7) Symbolic links created successfully!"
 MINIFORGE_DIR="$HOME/miniforge3"
 if [ -d "$MINIFORGE_DIR" ] ||
    [ -d "$HOME/anaconda3" ] ||
-   [ -d "HOME/miniconda3"] ||
+   [ -d "HOME/miniconda3" ] ||
    command -v conda &>/dev/null; then
   echo "(8) Conda already installed!"
 else
