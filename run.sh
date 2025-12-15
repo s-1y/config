@@ -118,34 +118,11 @@ else
   echo "(10) Conda aliases already exists!"
 fi
 
-FONT_NAME="MesloLGS"
-FONT_DIR="$HOME/.local/share/fonts"
-MESLO_URL_BASE="https://github.com/romkatv/powerlevel10k-media/raw/master/"
-FONTS=(
-  "MesloLGS%20NF%20Regular.ttf"
-  "MesloLGS%20NF%20Bold.ttf"
-  "MesloLGS%20NF%20Italic.ttf"
-  "MesloLGS%20NF%20Bold%20Italic.ttf"
-)
-if fc-list | grep -qi "$FONT_NAME"; then
-  echo "(11) Font '$FONT_NAME' already installed!"
-else
-  echo "(11) Installing font '$FONT_NAME'..."
-
-  mkdir -p "$FONT_DIR"
-
-  for font in "${FONTS[@]}"; do
-    wget --show-progress "${MESLO_URL_BASE}${font}" -O "$FONT_DIR/$(echo "$font" | sed 's/%20/ /g')"
-  done
-  fc-cache -fv > /dev/null
-  echo "Fonts installed successfully!"
-fi
-
 if ! command -v tmux &> /dev/null; then
-  echo "(12) Installing tmux"
+  echo "(11) Installing tmux"
   sudo apt-get install -y tmux
 else
-  echo "(12) Tmux already installed!"
+  echo "(11) Tmux already installed!"
 fi
 
 
@@ -153,7 +130,7 @@ OH_MY_TMUX_DIR="$HOME/.oh-my-tmux"
 OH_MY_TMUX_REPO="git@github.com:s-1y/.tmux.git"
 
 if [ ! -d "$OH_MY_TMUX_DIR" ]; then
-    echo "(13) Installing oh-my-tmux..."
+    echo "(12) Installing oh-my-tmux..."
     git clone --depth=1 "$OH_MY_TMUX_REPO" "$OH_MY_TMUX_DIR"
     if [ -f "$HOME/.tmux.conf" ]; then
         mv "$HOME/.tmux.conf" "$HOME/.tmux.conf.bak"
@@ -161,7 +138,7 @@ if [ ! -d "$OH_MY_TMUX_DIR" ]; then
     ln -s -f "$OH_MY_TMUX_DIR/.tmux.conf" "$HOME/.tmux.conf"
     cp "$OH_MY_TMUX_DIR/.tmux.conf.local" "$HOME/"
 else
-    echo "(13) Oh-my-tmux already installed!"
+    echo "(12) Oh-my-tmux already installed!"
 fi
 
 TMUX_CONF_LOCAL="$HOME/.tmux.conf.local"
