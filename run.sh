@@ -10,7 +10,7 @@ fi
 
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
   echo "(2) Installing oh-my-zsh.."
-  git clone git@github.com:s-1y/oh-my-zsh.git ~/.oh-my-zsh
+  git clone https://github.com/s-1y/oh-my-zsh.git ~/.oh-my-zsh
   cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 else
   echo "(2) Oh-my-zsh already installed!"
@@ -19,7 +19,7 @@ fi
 P10K_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
 if [ ! -d "$P10K_DIR" ]; then
   echo "(3) Installing powerlevel10k theme..."
-  git clone --depth=1 git@github.com:s-1y/powerlevel10k.git "$P10K_DIR"
+  git clone --depth=1 https://github.com/s-1y/powerlevel10k.git "$P10K_DIR"
     if grep -q '^ZSH_THEME=' "$HOME/.zshrc"; then
       sed -i.bak 's|^ZSH_THEME=.*|ZSH_THEME="powerlevel10k/powerlevel10k"|' "$HOME/.zshrc"
     else echo 'ZSH_THEME="powerlevel10k/powerlevel10k"' >> "$HOME/.zshrc"
@@ -31,7 +31,7 @@ fi
 SYNTAX_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
 if [ ! -d "$SYNTAX_DIR" ]; then
   echo "(4) Installing zsh-syntax-highlighting"
-  git clone --depth=1 git@github.com:s-1y/zsh-syntax-highlighting.git "$SYNTAX_DIR"
+  git clone --depth=1 https://github.com/s-1y/zsh-syntax-highlighting.git "$SYNTAX_DIR"
   if ! grep -q "zsh-syntax-highlighting" ~/.zshrc; then
     sed -i.bak 's/^plugins=(/plugins=( zsh-syntax-highlighting /' ~/.zshrc
   fi
@@ -41,7 +41,7 @@ fi
 AUTO_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
 if [ ! -d "$AUTO_DIR" ]; then
   echo "(5) Installing zsh-autosuggestions"
-  git clone --depth=1 git@github.com:s-1y/zsh-autosuggestions.git "$AUTO_DIR"
+  git clone --depth=1 https://github.com/s-1y/zsh-autosuggestions.git "$AUTO_DIR"
   if ! grep -q "zsh-autosuggestions" ~/.zshrc; then
     sed -i.bak 's/^plugins=(/plugins=( zsh-autosuggestions /' ~/.zshrc
   fi
@@ -127,7 +127,7 @@ fi
 
 
 OH_MY_TMUX_DIR="$HOME/.oh-my-tmux"
-OH_MY_TMUX_REPO="git@github.com:s-1y/.tmux.git"
+OH_MY_TMUX_REPO="https://github.com/s-1y/.tmux.git"
 
 if [ ! -d "$OH_MY_TMUX_DIR" ]; then
     echo "(12) Installing oh-my-tmux..."
