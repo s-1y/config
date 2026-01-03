@@ -63,28 +63,41 @@ ln -sf "$PWD/.gitconfig" ~/.gitconfig
 ln -sf "$PWD/.gitcommit_template" ~/.gitcommit_template
 echo "(7) Symbolic links created successfully!"
 
-MINIFORGE_DIR="$HOME/miniforge3"
-if [ -d "$MINIFORGE_DIR" ] ||
-   [ -d "$HOME/anaconda3" ] ||
-   [ -d "HOME/miniconda3" ] ||
-   command -v conda &>/dev/null; then
-  echo "(8) Conda already installed!"
-else
-  echo "(8) Installing Miniforge..."
-  INSTALLER="Miniforge3-Linux-x86_64.sh"
-  URL="https://github.com/conda-forge/miniforge/releases/latest/download/$INSTALLER"
-  curl -L -o "$INSTALLER" "$URL"
-  bash "$INSTALLER" -p "$MINIFORGE_DIR"
-  rm "$INSTALLER"
-fi
+INSTALLER="Miniforge3-Linux-x86_64.sh"
+URL="https://github.com/conda-forge/miniforge/releases/latest/download/$INSTALLER"
 
-source "$MINIFORGE_DIR/etc/profile.d/conda.sh"
+while true; do
+  read -r -p "(8) Do you want to install Miniforge3? [yes|no] " ans
+  case "${ans,,}" in
+    yes|y) INSTALL_MINIFORGE=true; break ;;
+    no|n)  INSTALL_MINIFORGE=false; echo "(8) Skipping Miniforge3 installation"; break ;;
+    *)     echo "Please answer yes or no." ;;
+  esac
+done
 
-if ! conda list -n base | grep -q '^mamba\s'; then
-    echo "(9) Installing mamba..."
-    conda install -n base -c conda-forge mamba -y
-else
-    echo "(9) Mamba is already installed"
+if [ "$INSTALL_MINIFORGE" = true ]; then
+  read -r -p "(8) Enter Miniforge3 install directory (e.g. [~/miniforge3]): " MF_DIR_IN
+  [ -n "$MF_DIR_IN" ] || MF_DIR_IN="~/miniforge3"
+  eval "MINIFORGE_DIR=\"$MF_DIR_IN\""
+
+  if [ -d "$MINIFORGE_DIR" ]; then
+    echo "(8) Target directory already exists: $MINIFORGE_DIR"
+    echo "(8) Skipping download, initialization, and mamba installation"
+  else
+    echo "(8) Installing Miniforge..."
+    curl -L -o "$INSTALLER" "$URL"
+    bash "$INSTALLER" -p "$MINIFORGE_DIR"
+    rm -f "$INSTALLER"
+
+    source "$MINIFORGE_DIR/etc/profile.d/conda.sh"
+
+    if ! conda list -n base | grep -q '^mamba\s'; then
+      echo "(9) Installing mamba..."
+      conda install -n base -c conda-forge mamba -y
+    else
+      echo "(9) Mamba is already installed"
+    fi
+  fi
 fi
 
 KEY="alias c='conda'"
