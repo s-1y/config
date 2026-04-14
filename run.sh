@@ -235,30 +235,21 @@ echo "--- (8) Miniforge3 ---"
 INSTALLER="Miniforge3-Linux-x86_64.sh"
 URL="https://github.com/conda-forge/miniforge/releases/latest/download/$INSTALLER"
 INSTALL_MINIFORGE=false
-MINIFORGE_DIR=""
- 
+
 if ask "  Install Miniforge3?"; then
-  read -r -p "  Enter install directory [~/miniforge3]: " MF_DIR_IN
-  [ -n "$MF_DIR_IN" ] || MF_DIR_IN="~/miniforge3"
-  eval "MINIFORGE_DIR=\"$MF_DIR_IN\""
- 
-  if [ -d "$MINIFORGE_DIR" ]; then
-    echo "  ✓ Miniforge3 already exists at $MINIFORGE_DIR. Skipping download and install."
+  echo "  Installing Miniforge3..."
+  if curl -L -o "$INSTALLER" "$URL" && bash "$INSTALLER"; then
+    rm -f "$INSTALLER"
+    echo "  ✓ Miniforge3 installed."
     INSTALL_MINIFORGE=true
   else
-    echo "  Installing Miniforge3 to $MINIFORGE_DIR... (Press enter to use default path)"
-    if curl -L -o "$INSTALLER" "$URL" && bash "$INSTALLER" -p "$MINIFORGE_DIR"; then
-      rm -f "$INSTALLER"
-      echo "  ✓ Miniforge3 installed at $MINIFORGE_DIR."
-      INSTALL_MINIFORGE=true
-    else
-      rm -f "$INSTALLER"
-      failed_skip "8"
-    fi
+    rm -f "$INSTALLER"
+    failed_skip "8"
   fi
 else
   echo "  → Skipping Miniforge3 installation."
 fi
+
  
 # ══════════════════════════════════════════════
 # (9) mamba
@@ -490,7 +481,25 @@ else
     fi
   fi
 fi
- 
+
+# ══════════════════════════════════════════════
+# (14) MesloLGS NF Fonts
+# ══════════════════════════════════════════════
+echo ""
+echo "--- (14) MesloLGS NF Fonts ---"
+
+if ask "  Install MesloLGS NF Fonts?"; then
+  mkdir -p ~/Downloads
+  cd ~/Downloads
+  wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+  wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
+  wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
+  wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
+  echo "  ✓ MesloLGS NF Fonts downloaded to ~/Downloads."
+else
+  echo "  → Skipping MesloLGS NF Fonts."
+fi
+
 # ══════════════════════════════════════════════
 # Done
 # ══════════════════════════════════════════════
