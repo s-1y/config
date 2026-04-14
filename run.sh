@@ -489,13 +489,17 @@ echo ""
 echo "--- (14) MesloLGS NF Fonts ---"
 
 if ask "  Install MesloLGS NF Fonts?"; then
-  mkdir -p ~/Downloads
-  cd ~/Downloads
-  wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
-  wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
-  wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
-  wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
-  echo "  ✓ MesloLGS NF Fonts downloaded to ~/Downloads."
+  mkdir -p ~/.local/share/fonts && cd ~/.local/share/fonts
+  wget -O "MesloLGS NF Regular.ttf" \
+    https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+  wget -O "MesloLGS NF Bold.ttf" \
+    https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
+  wget -O "MesloLGS NF Italic.ttf" \
+    https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
+  wget -O "MesloLGS NF Bold Italic.ttf" \
+    https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
+  fc-cache -fv
+  echo "  ✓ MesloLGS NF Fonts installed."
 else
   echo "  → Skipping MesloLGS NF Fonts."
 fi
